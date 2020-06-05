@@ -27,4 +27,8 @@ server.post('/api/register', async (req, res) => {
     }
 })
 
+server.post('/api/login', async (req, res) => {
+
+})
+
 module.exports = server;
