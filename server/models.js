@@ -8,7 +8,12 @@ const getUsers = () => {
     return db.select('*').from('users');
 }
 
+const getUserByUsername = (username) => {
+    return db.select('*').from('users').where({ username: username });
+}
+
 module.exports = {
     createUser,
-    getUsers
+    getUsers,
+    getUserByUsername
 }
