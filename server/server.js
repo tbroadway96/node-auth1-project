@@ -2,20 +2,20 @@ const express = require('express');
 const session = require('express-session')
 const router = require('./router');
 const cors = require('cors')
+const helmet = require('helmet');
 const knexSessionStore = require('connect-session-knex')(session);
 
 const sessionConfig = {
-    name: 'anyNameforSession',
-    secret: 'AnySecret',
+    name: 'sksession',
+    secret: 'my secret',
     cookie: {
-        maxAge: 60000, //Milliseconds
-        secure: false, // should be true in production
-        httpOnly: true //only for Http use
+        maxAge: 60000, 
+        secure: false,
+        httpOnly: true
     },
     resave: false,
     saveUninitialized: false,
 
-    //Configuration to store session in Database using knex
     store: new knexSessionStore(
         {
             knex: require('../data/db-config.js'),
@@ -30,6 +30,7 @@ const sessionConfig = {
 const server = express();
 server.use(express.json());
 server.use(cors());
+server.use(helmet());
 server.use(session(sessionConfig));
 server.use('/', router);
 
